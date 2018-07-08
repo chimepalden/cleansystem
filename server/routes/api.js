@@ -4,7 +4,7 @@ const router = express.Router()
 // require the package jsonwebtoken
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
-const Problem = require('../models/problem')
+const Report = require('../models/report')
 const mongoose = require('mongoose')
 
 // db connection string
@@ -23,19 +23,28 @@ router.get('/', (req, res) => {
     res.send('from api route')
 })
 
-// problem api
-router.post('/record', (req, res) =>{
-    // extracting the problem data from req object
-    let probData = req.body
-    console.log(probData)
-    // converting the problem data into model that mongoose understands
-    let problem = new Problem(probData)
+// report api
+router.post('/report', (req, res) =>{
+    // extracting the reported data from req object
+    let reportedData = req.body
+    let data = Object.assign({}, reportedData, {
+        problems: reportedData.problems.filter((element, index, array) => {
+            if (element !== null ) { return element; }
+        })
+    })
+    /*problems.filter( (element, index, array) => {
+        if (element !== null){ return element;}
+    })*/
+    console.log(data)
+    // converting the reported data into model that mongoose understands
+    let report = new Report(data)
     // saving in the db
-    problem.save((error, registeredProblem)=>{
+    report.save((error, registeredProblem)=>{
         if(error) {
             console.log(error)
         }else {
-            res.status(200).send(registeredProblem)
+            res.status(200).send(registeredProblem);
+            console.log(registeredProblem)
         }
     })
 })

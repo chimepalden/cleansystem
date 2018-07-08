@@ -7,13 +7,13 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
   private _registerUrl = 'http://localhost:2000/api/register';
   private _loginUrl = 'http://localhost:2000/api/login';
-  private _problemUrl = 'http://localhost:2000/api/record';
+  private _reportUrl = 'http://localhost:2000/api/report';
 
   constructor(private _http: HttpClient, private _router: Router) { }
 
   // to register new problem
-  registerProblem(problem) {
-    return this._http.post<any>(this._problemUrl, problem);
+  registerReport(report) {
+    return this._http.post<any>(this._reportUrl, report);
   }
   // to register new user/staff and returns observable
   registerUser(user) {

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ControlValueAccessor, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
@@ -28,9 +28,10 @@ import { GeocodingService } from './geocoding.service';
     LoginComponent,
     RegisterComponent,
     RecordComponent,
-    CheckboxGroupComponent,
     CheckboxComponent,
-    PageNotFoundComponent],
+    CheckboxGroupComponent,
+    PageNotFoundComponent,
+  ],
 
   imports: [
     BrowserModule,
@@ -52,7 +53,8 @@ import { GeocodingService } from './geocoding.service';
     GeocodingService
     ],
 
-  bootstrap: [AppComponent, ReportComponent]
+  bootstrap: [AppComponent],
+  // schemas: [ NO_ERRORS_SCHEMA]
 })
 
 export class AppModule { }

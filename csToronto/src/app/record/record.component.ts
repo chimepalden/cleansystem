@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecordComponent implements OnInit {
 
+  wards: [
+    { ward: '', problems: [ { add: '', problems: '' }] }
+  ];
   constructor() { }
 
   ngOnInit() {
