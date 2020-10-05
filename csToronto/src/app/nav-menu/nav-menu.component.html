@@ -1,0 +1,49 @@
+<div class="container">
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">  
+    <a class="navbar-brand" routerLink="">CS Toronto</a>
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Navbar links -->
+    <div class ="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Right-side -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="" routerLinkActive="active">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="about" routerLinkActive="active">About</a>
+        </li>
+      </ul>
+      <!-- Left-side -->
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link text-warning" data-toggle="collapse" data-target="#alert1">Alert</a>
+        </li>
+        <li class="nav-item dropdown" *ngIf="_authService.loggedIn()">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdown"
+            role="button" aria-haspopup="true" aria-expanded="false">
+            Others
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="other/1">Members</a>
+            <a class="dropdown-item" routerLink="other/2">Staffs</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" routerLink="#">Search</a>
+          </div>
+        </li>   
+        <a class="nav-link" *ngIf="!_authService.loggedIn()" routerLink="login" routerLinkActive="active">Login</a>
+        <a class="nav-link" *ngIf="!_authService.loggedIn()" routerLink="register" routerLinkActive="active">Register</a>
+        <a class="nav-link" *ngIf="_authService.loggedIn()" style="cursor:pointer" (click)="_authService.logoutUser()">Logout</a>
+      </ul>
+    </div>
+  </nav>
+  <div id="alert1" class="alert alert-warning collapse show">
+    Due to On-going Covid-19 pandemic, we are working with a reduced capacity.
+  </div>
+</div>
+<div>
+  <router-outlet></router-outlet>
+</div>
+  

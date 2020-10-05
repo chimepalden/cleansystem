@@ -28,7 +28,8 @@ export class ReportComponent implements OnInit {
       {name: 'Garbage/Road blocking Objects', selected: false, id: 6},
       {name: 'City Property Vandalism', selected: false, id: 7},
       {name: 'Mould and Spore Growth', selected: false, id: 8}
-    ]
+    ],
+    otherProblems: ''
   };
 
   reportForm: FormGroup;
@@ -52,35 +53,35 @@ export class ReportComponent implements OnInit {
               private _fb: FormBuilder ) { } // <--- injecting FormBuilder and others in constructor
 
   ngOnInit() {
-    // build data model for our form
     this.buildForm();
   }
 
   // form-model
-  // using formbuilder to build model-driven/reactive form
+  // using formbuilder to build model-driven/reactive form.
   buildForm() {
     this.reportForm = this._fb.group({
-      address: '', // <--- the FormControl called "address"
-      problems: this.buildProblems() // assigning predefined list of problems
+      problems: this.buildProblems(), // assigning predefined list of problems
+      otherProblems: '',
+      address: '' // <--- the FormControl called "address"
     });
 
-    // watch for changes and validate: valueChanges is observable
-    // this.reportForm.valueChanges.subscribe( data => {
-    // console.log(data);
-    // this.validateForm();
-    console.log(this.reportForm);
+    /* watch for changes and validate: valueChanges is observable
+     this.reportForm.valueChanges.subscribe( data => {
+     console.log(data);
+     this.validateForm();
+     console.log(this.reportForm); */
   }
 
-  // reference to problems; getting the list of problems from the form.
+  // Reference to problems; getting the list of problems from the form.
   get problems(): FormArray {
     return this.reportForm.get('problems') as FormArray;
   }
 
-  // returns an array of problems from the predietermined problem list in the report class/above.
+  // Returns an array of problems from the predietermined problem list in the report class above.
   buildProblems() {
     const arr = this.report.problems.map( problemList => {
-      // console.log(problemList);
-      return this._fb.control(problemList.selected); // returning only the value of @param: selected.
+       // console.log(problemList);
+       return this._fb.control(problemList.selected); // returning only the value of @param: selected.
       /* return this._fb.group({
           name: [problemList.name],
           selected: [problemList.selected]
@@ -90,8 +91,7 @@ export class ReportComponent implements OnInit {
     return this._fb.array(arr);
   }
 
-  clickedLocation(event) {
-    // coords of the clickedLocation is passed with event object.
+  clickedLocation(event: any) {
     this.lat = event.coords.lat;
     this.lng = event.coords.lng;
     this.locationChosen = true;
@@ -100,7 +100,7 @@ export class ReportComponent implements OnInit {
                           .subscribe(response => {
                             if (response.status === 'OK') {
                               this.mapAddress = response.results[0].formatted_address;
-                              // console.log(this.mapAddress);
+                              console.log(this.mapAddress); // for testing
                               this.reportForm.patchValue({
                                 address: this.mapAddress
                               });
@@ -109,39 +109,23 @@ export class ReportComponent implements OnInit {
   }
 
   // if the checkbox is checked or not
-  submit(value) {
-    console.log(value);
+  submit(value: any) {
+    // console.log(value);
     const formValue = Object.assign({}, value, {
-        problems: value.problems.map( (element, index, array) => {
-          // console.log(element);
-          // console.log(index);
+        problems: value.problems.map( (element: any, index: any, array: any) => {
           // returns the name of the checked problem.
           if (element === true) {
             return this.report.problems[index].name;
-            /*{
-            id: this.report.problems[index].id,
-            name: this.report.problems[index].name,
-            selected: element,
-            };*/
           }
-          /*const problemList = new Array;
-          s.array.forEach(element => {
-            if (element === true) {
-              const i = 0;
-              problemList.push(this.report.problems[i].name);
-            }
-          }); */
-        //  console.log(len);
-        // return problemList;
         })
     });
     console.log(formValue);
-   // this.reportForm = this.prepareSaveReport();
     this._authService.registerReport(formValue)
                    .subscribe(res => {
                           console.log(res);
                           // this.reportForm.reset();
-                          this._router.navigate(['/report']);
+                          this._router.navigate(['/']);
+                          // add success alert box on submission
                         });
   }
 
@@ -168,24 +152,6 @@ export class ReportComponent implements OnInit {
       }
     }
   }*/
-
-  // refernce to the problems
-  /*get problems(): FormArray {
-    return this.reportForm.get('problems') as FormArray;
-  }*/
-
-  /*problemList() {
-    const arr = this.report.problems.map(
-              data => { return this._fb.control(data.selected);
-      // return this.fb.group({
-      // selected: [data.selected],
-      // id: [data.id]
-      // }
-    });
-    return this._fb.array(arr);
-  }*/
-
-
 
  /* onItemChange(event, value) {
     console.log('item changed', value);

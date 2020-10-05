@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="jumbotron mb-0 bg-secondary">
+    <div class="row text-center">
+      <div class="col-sm-4">
+        <a class="text-light" routerLink=""><h5>CleanSystem</h5></a>
+        <p>Copyright @2020 All rights reserved</p>
+      </div>
+      <div class="col-sm-4">
+        <!-- <form #subscriberForm="ngForm" (ngSubmit)="subscribeUser()">
+          <h5>Join Us</h5>
+          <p>Stay updated with our latest trends</p>
+          <div class="form-group">
+              <input [(ngModel)]="subscriberData.email" type="email" name="email" class="form-control" 
+                      placeholder="Enter Email address" required>
+              <button class="btn btn-success" type="submit"><i class="fas fa-arrow-right"></i></button>
+          </div>
+        </form> -->
+        <h5>Join Us</h5>
+          <p>Stay updated with our latest trends</p>
+        <form #subscriberForm="ngForm" (ngSubmit)="subscribeUser(subscriberForm)">
+          <div class="form-group" [class.has-error]="email.invalid && email.touched">
+            <input [(ngModel)]="subscriber.email" #email="ngModel" class="form-control" type="email" name="email" 
+                  placeholder="Email address" required pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$">
+          </div>
+          <button class="btn btn-success" type="submit" [disabled]="subscriberForm.invalid"><i class="fas fa-arrow-right"></i></button>
+          <span class="help-block text-danger" *ngIf="email.errors?.required && email.touched">
+            Email is required
+          </span>
+          <span class="help-block text-danger" *ngIf="email.errors?.pattern && email.touched">
+            Email is invalid
+          </span>
+        </form>  
+      </div>
+      <div class="col-sm-4">
+        <h5>Follow Me</h5>
+        <p>Let us be social</p>
+        <a href="https://www.linkedin.com/in/chimepalden/" target="_blank" class="btn-sm">
+            <i class="fab fa-linkedin"></i>
+            </a>
+        <a href="https://www.facebook.com/batuk100" target="_blank" class="btn-sm">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a routerLink="#" routerLinkActive="active" class="btn-sm">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://www.instagram.com/palden08/" target="_blank" class="btn-sm">
+            <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+  </div>
+</div>  

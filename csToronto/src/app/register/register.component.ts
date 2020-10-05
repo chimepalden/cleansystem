@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
                   console.log(res);
                   localStorage.setItem('token', res.token);
                   // storing the response, token object at browser's localstorage
-                  this._router.navigate(['/home']);
+                  this._router.navigate(['/cleansystem']);
                 },
                 err => console.log(err),
               );

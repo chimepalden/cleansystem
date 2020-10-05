@@ -1,32 +1,38 @@
-<div class="row pt-2 pl-2">
-    <div class="col-md-8" *ngIf="lat && lng">
-        <!-- mapclick: It registers the click plus internally passes the coordinates of the location on which we clicked -->
-        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14" (mapClick)="clickedLocation($event)">
-            <agm-marker [latitude]="lat" [longitude]="lng" *ngIf="locationChosen">
-                <agm-info-window>
-                    <p>{{mapAddress}}</p>
-                </agm-info-window>
-            </agm-marker>
-        </agm-map>
-    </div>	
-    <div class="col-md-4">
-        <h3>Report From</h3>                            
-        <form (ngSubmit)="submit(reportForm.value)" [formGroup]="reportForm" novalidate>
-            <div class="form-group" formArrayName="problems">
-                <div *ngFor="let problem of problems.controls; let i=index;">
-                    <input type="checkbox" [formControl]="problem"/>{{report.problems[i].name}}
-                </div>        
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" formControlName="address"  
-                       value={{mapAddress}}  placeholder="Site's Location: Click on the map" required/>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-danger" 
-                ng-disabled="reportForm.address.$dirty && reportForm.address.$invalid || 
-                reportForm.problems.$dirty && reportForm.problems.$invalid ">Submit</button>
-            </div>  
-        </form>  
-        {{reportForm.value | json }}  
-    </div>	
+<div class="container mb-3">
+    <div class="row">
+        <div class="col-md-8" *ngIf="lat && lng">
+            <!-- mapclick: It registers the click plus internally passes the coordinates of the location on which we clicked -->
+            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14" (mapClick)="clickedLocation($event)">
+                <agm-marker [latitude]="lat" [longitude]="lng" *ngIf="locationChosen">
+                    <agm-info-window>
+                        <p>{{mapAddress}}</p>
+                    </agm-info-window>
+                </agm-marker>
+            </agm-map>
+        </div>	
+        <div class="col-md-4">
+            <h3>Report Form</h3>                       
+            <form (ngSubmit)="submit(reportForm.value)" [formGroup]="reportForm" novalidate>
+                <div class="form-group border rounded" formArrayName="problems">
+                    <div class="ml-2" *ngFor="let problem of problems.controls; let i=index;">
+                        <input type="checkbox" [formControl]="problem"/> {{report.problems[i].name}}
+                    </div>        
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" formControlName="otherProblems"
+                      placeholder="Other Problems"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" formControlName="address"  
+                            value={{mapAddress}}  placeholder="Site's Location: Click on the map" required/>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info" 
+                    ng-disabled="reportForm.address.$dirty && reportForm.address.$invalid || 
+                    reportForm.problems.$dirty && reportForm.problems.$invalid ">Submit</button>
+                </div>  
+            </form>  
+           <!-- {{reportForm.value | json }}-->   
+        </div>	
+    </div>
 </div>

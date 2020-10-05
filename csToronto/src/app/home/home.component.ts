@@ -8,9 +8,9 @@ import { AuthService } from '../auth.service';
 })
 export class HomeComponent implements OnInit {
 
+  CommunityCouncilAreaList = ['Downtown and East York', 'North York', 'Etobicoke York', 'Scarborough', 'Toronto'];
   constructor(private _authService: AuthService) { }
 
   ngOnInit() {
   }
-
 }

@@ -1,45 +1,32 @@
-<div class="jumbotron text-center">
-  <h1>Cypress System</h1>
-	<p>Let's make our city better!</p>
-</div>
-<div class="row pl-5">
-  <div class="col-md-4">
-    <form>
-      <fieldset>
-        <legend>New Problems</legend>
-          <input type="checkbox" name='region[]' value='Downtown'/>Downtown<br>
-          <input type="checkbox" name='region[]' value='York'/>York Region<br>
-          <input type="checkbox" name='region[]' value='North York'/>North York<br>
-          <input type="checkbox" name='region[]' value='East York'/>East York<br>
-          <input type="checkbox" name='region[]' value='Etobicoke'/>Etobicoke<br>
-      </fieldset>
-      <button type="submit" class="btn btn-primary">Show</button>
-    </form>	
-  </div>
-  <div class="col-md-4">
-    <form>
-      <fieldset>
-        <legend>Pending Problems</legend>
-          <input type="checkbox" name='region[]' value='Downtown'/>Downtown<br>
-          <input type="checkbox" name='region[]' value='York'/>York Region<br>
-          <input type="checkbox" name='region[]' value='North York'/>North York<br>
-          <input type="checkbox" name='region[]' value='East York'/>East York<br>
-          <input type="checkbox" name='region[]' value='Etobicoke'/>Etobicoke<br>
-      </fieldset>
-      <button type="submit" class="btn btn-primary">Show</button>
-    </form>	
-  </div>
-  <div class="col-md-4">
-    <form>
-      <fieldset>
-        <legend>Finished Problems</legend>
-          <input type="checkbox" name='region[]' value='Downtown'/>Downtown<br>
-          <input type="checkbox" name='region[]' value='York'/>York<br>
-          <input type="checkbox" name='region[]' value='North York'/>North York<br>
-          <input type="checkbox" name='region[]' value='East York'/>East York<br>
-          <input type="checkbox" name='region[]' value='Etobicoke'/>Etobicoke<br>
-      </fieldset>
-      <button type="submit" class="btn btn-primary">Show</button>
-    </form>	
-  </div>
+<div class="container mb-3">
+  <div class="card">
+    <div class="card-header text-center">
+      REPORTS - {{parameter}}
+    </div>
+    <table class="table-sm table-striped table-responsive">
+      <thead>
+        <tr>
+          <th class="align-middle bg-secondary" *ngFor="let field of recordFields">{{field}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="align-middle" *ngFor="let record of recordList | paginate: { 
+          id: 'records_pagination',
+          itemsPerPage: 5,
+          currentPage: page,
+          totalItems: recordListSize }">
+          <td>{{record._id}}</td>
+          <td>{{record.problems}}</td>
+          <td>{{record.otherProblems}}</td>
+          <td>{{record.address}}</td>
+          <td>{{record.communityCouncilArea}}</td>
+          <td>{{record.date}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center">
+      <pagination-controls id="records_pagination" maxSize="5" directionLinks="false"
+      (pageChange)="page = $event"></pagination-controls> 
+    </div>
+  </div>  
 </div>

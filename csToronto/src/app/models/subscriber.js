@@ -1,0 +1,3 @@
+Subscriber = {
+    email: String
+}

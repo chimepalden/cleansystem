@@ -1,10 +1,38 @@
-<div class="jumbotron text-center">
-  <h1>Cypress System</h1>
-	<p>Let's make our city better!</p>
-</div>
-<div class="col-md-6">
-  <ul class="">
-    <li class=""><a routerLink="/report" routerLinkActive="active">Report Problems</a></li>
-    <li class="" *ngIf="_authService.loggedIn()"><a routerLink="/record" routerLinkActive="active">Problems</a></li>
-  </ul>
+
+<div class="container">
+  <div class="jumbotron text-center">
+    <h1>Clean System</h1>
+    <p>Let's make our city better!</p>
+  </div>
+</div>  
+<div class="container">
+  <div class="col-md-6 mx-auto">
+      <div class="card border-0">
+        <div class="card-header text-center">
+          <i class="fas fa-file-signature"></i>
+          <a routerLink="report" routerLinkActive="active">Report Problems</a>
+        </div>
+        <div class="card-body">
+        </div>  
+      </div>
+      <div class="card border-0" *ngIf="_authService.loggedIn()">
+        <div class="card-header text-center">
+          <i class="fas fa-folder"></i>
+          Problems
+        </div>
+        <div class="card-body">
+          <div *ngFor="let communityCouncilArea of CommunityCouncilAreaList">
+            <a [routerLink]="['record', communityCouncilArea]"><h6>{{communityCouncilArea}}</h6></a>
+          </div>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Enter Problem Id">
+            <div class="input-group-btn">
+                <a [routerLink]="['record']" class="btn btn-primary" type="button">
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div> 
+        </div>
+        </div>  
+      </div>
+  </div>
 </div>
